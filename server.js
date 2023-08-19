@@ -213,26 +213,6 @@ app.get('/recipes', async (req, res) => {
   }
 });
 
-// PUT /api/recipes/:id
-app.put('/recipes/:id', async (req, res) => {
-  const recipeId = req.params.id;
-
-  try {
-    const updatedRecipe = await Recipe.findByIdAndUpdate(
-      recipeId,
-      req.body,
-      { new: true }
-    );
-
-    if (!updatedRecipe) {
-      return res.status(404).json({ message: 'Recipe not found' });
-    }
-
-    res.json(updatedRecipe);
-  } catch (error) {
-    res.status(500).json({ message: 'Error updating recipe', error: error.message });
-  }
-});
 
 //to delete the recipe 
 app.delete('/recipes/:id/:userid', async (req, res) => {
