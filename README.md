@@ -1,6 +1,11 @@
 # Recipe-Management-backend
 Live Url: https://animated-mandazi-ef27ca.netlify.app/
 
+steps to login:
+demo credentials:
+email:guest1@gmail.com
+password:guest1
+
 API details:
 1. To search for the recipes -get('/recipes/search')
 2. To register new user -post('/register')
