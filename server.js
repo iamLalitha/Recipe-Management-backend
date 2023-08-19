@@ -22,7 +22,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://lalithaRecipefinder:jDBBnCNFlui28lou@cluster0.qf7nmrb.mongodb.net/?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://lalithaRecipefinder:jDBBnCNFlui28lou@cluster0.qf7nmrb.mongodb.net/RecipeFinderDB?retryWrites=true&w=majority', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
