@@ -13,7 +13,7 @@ const secretKey = crypto.randomBytes(32).toString('hex'); // Generates a 256-bit
 
 
 const app = express();
-const port = 3001; 
+const port=3001;
 const User = require('./models/User');
 const Recipe = require('./models/Recipe');
 
@@ -22,7 +22,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb+srv://lalithaRecipefinder:jDBBnCNFlui28lou@cluster0.qf7nmrb.mongodb.net/RecipeFinderDB?retryWrites=true&w=majority', {
+mongoose.connect(process.env.MONGODB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -213,6 +213,26 @@ app.get('/recipes', async (req, res) => {
   }
 });
 
+// PUT /api/recipes/:id
+app.put('/recipes/:id', async (req, res) => {
+  const recipeId = req.params.id;
+
+  try {
+    const updatedRecipe = await Recipe.findByIdAndUpdate(
+      recipeId,
+      req.body,
+      { new: true }
+    );
+
+    if (!updatedRecipe) {
+      return res.status(404).json({ message: 'Recipe not found' });
+    }
+
+    res.json(updatedRecipe);
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating recipe', error: error.message });
+  }
+});
 
 //to delete the recipe 
 app.delete('/recipes/:id/:userid', async (req, res) => {
@@ -300,6 +320,26 @@ app.post('/reset-password/:token', async (req, res) => {
   }
 });
 
+// Add comments to a recipe
+app.post('/:recipeId/comments', async (req, res) => {
+  const { recipeId } = req.params;
+  const { comment } = req.body;
+
+  try {
+    const recipe = await Recipe.findById(recipeId);
+    if (!recipe) {
+      return res.status(404).json({ message: 'Recipe not found' });
+    }
+
+    recipe.comments.push(comment);
+    await recipe.save();
+
+    res.status(200).json({ message: 'Comment added successfully' });
+  } catch (error) {
+    console.error('Error adding comment:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
