@@ -8,6 +8,7 @@ const recipeSchema = new Schema({
   instructions: { type: String, required: true },
   cookingtime: { type: Number, required: true },
   image: { type: String }, // URL to the recipe image
+  comments:[{type: String}],
   creator: { type: mongoose.Types.ObjectId, ref: 'User', required: true },
   createdAt: { type: Date }
 });
