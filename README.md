@@ -19,3 +19,5 @@ API details:
 10. To fetch users created recipes -get('/recipes/user/:userId')
 11. To to send verification email -post('/send-verification-email')
 12. To  Reset password -post('/reset-password/:token')
+13. To comment on a recipe -post('/:recipeId/comments')
+    
