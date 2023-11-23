@@ -13,7 +13,7 @@ const secretKey = crypto.randomBytes(32).toString('hex'); // Generates a 256-bit
 
 
 const app = express();
-const port=3001;
+const port=https://animated-mandazi-ef27ca.netlify.app;
 const User = require('./models/User');
 const Recipe = require('./models/Recipe');
 
